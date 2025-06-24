@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     const start = new Date(Date.now() - Number(range) * 60 * 60 * 1000).toISOString();
-    fetch(`/api/usage?start=${start}`)
+    fetch(`http://localhost:3000/api/usage?start=${start}`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
