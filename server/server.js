@@ -40,13 +40,30 @@ function ensureFeature(name) {
   return row.id;
 }
 
+function insertEvent(feature, user, account, location) {
+  const featureId = ensureFeature(feature);
+  const insertEvent = db.prepare('INSERT INTO events(feature_id, user, account, location) VALUES (?,?,?,?)');
+  insertEvent.run(featureId, user, account, location);
+}
+
+function insertRandomEvent() {
+  const feature = ['Tracking', 'Management', 'Security'][Math.floor(Math.random() * 3)];
+  const user = ['Kody Garza', 'Max Wilkins', 'Chandler Perry'][Math.floor(Math.random() * 3)];
+  const account = ['Samsung', 'Apple', 'Google'][Math.floor(Math.random() * 3)];
+  const location = ['US', 'UK', 'EU'][Math.floor(Math.random() * 3)];
+  insertEvent(feature, user, account, location);  
+}
+
+// insert random events periodically
+if (process.env.NODE_ENV !== 'production') {
+  setInterval(insertRandomEvent, 100);
+}
+
 // log feature usage event
 app.post('/api/events', (req, res) => {
   const { feature, user, account, location } = req.body;
   if (!feature) return res.status(400).json({ error: 'feature required' });
-  const featureId = ensureFeature(feature);
-  const insertEvent = db.prepare('INSERT INTO events(feature_id, user, account, location) VALUES (?,?,?,?)');
-  insertEvent.run(featureId, user, account, location);
+  insertEvent(feature, user, account, location);
   res.json({ status: 'ok' });
 });
 
@@ -85,9 +102,9 @@ app.get('/api/trend', (req, res) => {
 });
 
 // serve production build of frontend
-app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+app.use(express.static(path.join(__dirname, '../client', 'dist')));
 app.get(/^\/(?!api).*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
