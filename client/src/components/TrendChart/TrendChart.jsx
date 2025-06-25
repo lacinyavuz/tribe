@@ -4,30 +4,42 @@ import { useEffect, useState } from 'react';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+const ALL_FEATURES = ['Tracking', 'Management', 'Security'];
+
 function TrendChart({ feature }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    if (!feature) return;
-    const params = new URLSearchParams({ feature });
-    fetch(`http://localhost:3000/api/trend?${params.toString()}`)
-      .then(res => res.json())
-      .then(setData)
-      .catch(console.error);
+    const fetchData = async () => {
+      const result = {};
+      await Promise.all(
+        ALL_FEATURES.map(async f => {
+          const params = new URLSearchParams({ feature: f });
+          const res = await fetch(`http://localhost:3000/api/trend?${params.toString()}`);
+          result[f] = await res.json();
+        })
+      );
+      setData(result);
+    };
+    fetchData().catch(console.error);
   }, [feature]);
 
-  const chartData = {
-    labels: data.map(r => r.hour),
-    datasets: [
-      {
-        label: `${feature} Usage`,
-        data: data.map(r => r.count),
-        borderColor: 'rgba(75,192,192,1)',
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        tension: 0.3
-      }
-    ]
-  };
+  const colors = [
+    'rgba(75,192,192,1)',
+    'rgba(255,99,132,1)',
+    'rgba(54,162,235,1)'
+  ];
+
+  const labels = data[feature]?.map(r => r.hour) || [];
+  const datasets = ALL_FEATURES.map((f, idx) => ({
+    label: `${f} Usage`,
+    data: (data[f] || []).map(r => r.count),
+    borderColor: colors[idx % colors.length],
+    backgroundColor: colors[idx % colors.length].replace('1)', '0.2)'),
+    tension: 0.3
+  }));
+
+  const chartData = { labels, datasets };
 
   return (
     <div>
