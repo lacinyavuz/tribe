@@ -2,6 +2,7 @@ import UsageList from './components/UsageList/UsageList.jsx';
 import UsageChart from './components/UsageChart/UsageChart.jsx';
 import PieChart from './components/PieChart/PieChart.jsx';
 import TrendChart from './components/TrendChart/TrendChart.jsx';
+import FeatureBreakdownChart from './components/FeatureBreakdownChart/FeatureBreakdownChart.jsx';
 import './App.css';
 
 function App() {
@@ -11,6 +12,9 @@ function App() {
       <UsageChart title="Usage by User" endpoint="/api/users" labelKey="user" />
       <UsageChart title="Usage by Account" endpoint="/api/accounts" labelKey="account" />
       <UsageChart title="Usage by Location" endpoint="/api/locations" labelKey="location" />
+      <FeatureBreakdownChart title="Feature Usage by Users" groupKey="user" />
+      <FeatureBreakdownChart title="Feature Usage by Accounts" groupKey="account" />
+      <FeatureBreakdownChart title="Feature Usage by Location" groupKey="location" />
       <PieChart title="Usage Distribution" endpoint="/api/usage" labelKey="feature" />
       <TrendChart feature="Tracking" />
       <UsageList />
