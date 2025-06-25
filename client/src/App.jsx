@@ -1,22 +1,28 @@
+import { useEffect, useState } from 'react';
 import UsageList from './components/UsageList/UsageList.jsx';
-import UsageChart from './components/UsageChart/UsageChart.jsx';
 import PieChart from './components/PieChart/PieChart.jsx';
 import TrendChart from './components/TrendChart/TrendChart.jsx';
 import FeatureBreakdownChart from './components/FeatureBreakdownChart/FeatureBreakdownChart.jsx';
 import './App.css';
 
 function App() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/events')
+      .then(res => res.json())
+      .then(setEvents)
+      .catch(console.error);
+  }, []);
+
   return (
     <div className="App">
-      <UsageChart title="Feature Usage" endpoint="/api/usage" labelKey="feature" />
-      <UsageChart title="Usage by User" endpoint="/api/users" labelKey="user" />
-      <UsageChart title="Usage by Account" endpoint="/api/accounts" labelKey="account" />
-      <UsageChart title="Usage by Location" endpoint="/api/locations" labelKey="location" />
-      <FeatureBreakdownChart title="Feature Usage by Users" groupKey="user" />
-      <FeatureBreakdownChart title="Feature Usage by Accounts" groupKey="account" />
-      <FeatureBreakdownChart title="Feature Usage by Location" groupKey="location" />
-      <PieChart title="Usage Distribution" endpoint="/api/usage" labelKey="feature" />
-      <TrendChart feature="Tracking" />
+      <PieChart title="Usage Distribution per Feature" endpoint="/api/usage" labelKey="feature" />
+      <TrendChart />
+      <FeatureBreakdownChart title="Feature Usage by Users" events={events} groupKey="user" />
+      <FeatureBreakdownChart title="Feature Usage by Accounts" events={events} groupKey="account" />
+      <FeatureBreakdownChart title="Feature Usage by Location" events={events} groupKey="location" />
+
       <UsageList />
     </div>
   );

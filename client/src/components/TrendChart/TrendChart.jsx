@@ -1,12 +1,13 @@
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { useEffect, useState } from 'react';
+import { COLORS } from '../../constants/colors';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const ALL_FEATURES = ['Tracking', 'Management', 'Security'];
 
-function TrendChart({ feature }) {
+function TrendChart() {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -22,29 +23,21 @@ function TrendChart({ feature }) {
       setData(result);
     };
     fetchData().catch(console.error);
-  }, [feature]);
+  }, []);
 
-  const colors = [
-    'rgba(75,192,192,1)',
-    'rgba(255,99,132,1)',
-    'rgba(54,162,235,1)'
-  ];
-
-  const labels = data[feature]?.map(r => r.hour) || [];
+  const labels = Object.values(data)[0]?.map(r => r.hour) || [];
   const datasets = ALL_FEATURES.map((f, idx) => ({
     label: `${f} Usage`,
     data: (data[f] || []).map(r => r.count),
-    borderColor: colors[idx % colors.length],
-    backgroundColor: colors[idx % colors.length].replace('1)', '0.2)'),
+    borderColor: COLORS[idx % COLORS.length],
+    backgroundColor: COLORS[idx % COLORS.length].replace('1)', '0.2)'),
     tension: 0.3
   }));
 
-  const chartData = { labels, datasets };
-
   return (
     <div>
-      <h2>{feature} Trend</h2>
-      <Line data={chartData} />
+      <h2>Trends</h2>
+      <Line data={{ labels, datasets }} />
     </div>
   );
 }
