@@ -44,4 +44,51 @@ function trend(req, res) {
   res.json(rows);
 }
 
-module.exports = { logEvent, usage, trend, listEvents };
+function usageByUser(req, res) {
+  const { start, end, feature } = req.query;
+  const startDate = start ? new Date(start) : new Date(Date.now() - 24*60*60*1000);
+  const endDate = end ? new Date(end) : new Date();
+  const params = {
+    start: startDate.toISOString().slice(0, 19).replace('T', ' '),
+    end: endDate.toISOString().slice(0, 19).replace('T', ' '),
+    feature: feature ? `%${feature}%` : '%'
+  };
+  const rows = db.getUsageByUser(params);
+  res.json(rows);
+}
+
+function usageByAccount(req, res) {
+  const { start, end, feature } = req.query;
+  const startDate = start ? new Date(start) : new Date(Date.now() - 24*60*60*1000);
+  const endDate = end ? new Date(end) : new Date();
+  const params = {
+    start: startDate.toISOString().slice(0, 19).replace('T', ' '),
+    end: endDate.toISOString().slice(0, 19).replace('T', ' '),
+    feature: feature ? `%${feature}%` : '%'
+  };
+  const rows = db.getUsageByAccount(params);
+  res.json(rows);
+}
+
+function usageByLocation(req, res) {
+  const { start, end, feature } = req.query;
+  const startDate = start ? new Date(start) : new Date(Date.now() - 24*60*60*1000);
+  const endDate = end ? new Date(end) : new Date();
+  const params = {
+    start: startDate.toISOString().slice(0, 19).replace('T', ' '),
+    end: endDate.toISOString().slice(0, 19).replace('T', ' '),
+    feature: feature ? `%${feature}%` : '%'
+  };
+  const rows = db.getUsageByLocation(params);
+  res.json(rows);
+}
+
+module.exports = {
+  logEvent,
+  usage,
+  trend,
+  listEvents,
+  usageByUser,
+  usageByAccount,
+  usageByLocation
+};

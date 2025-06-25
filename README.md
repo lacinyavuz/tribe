@@ -26,5 +26,8 @@ During development you can run `npm start` and separately `npm --prefix frontend
 - `POST /api/events` – log a feature usage event. Body parameters: `feature`, `user`, `account`, `location`.
 - `GET /api/usage` – retrieve aggregated counts per feature for a time range.
 - `GET /api/trend` – hourly counts for a single feature within a time range.
+- `GET /api/users` – aggregated counts grouped by user.
+- `GET /api/accounts` – aggregated counts grouped by account.
+- `GET /api/locations` – aggregated counts grouped by location.
 
 This prototype is intended to demonstrate the basic data flow and can be extended with authentication, additional filtering, and persistent storage.
