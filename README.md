@@ -1,33 +1,48 @@
-# Feature Usage Tracker Prototype
+# 📊 Feature Usage Tracker
 
-This repository contains a lightweight prototype for tracking feature usage in real time. It is composed of a Node.js backend with a SQLite database and a React frontend built with Vite.
+**Feature Usage Tracker** is a full-stack prototype that records feature interactions in real time and displays them with rich charts.
 
-## Architecture
-- **Node.js / Express** server (`server.js`) provides REST APIs to log feature events and retrieve aggregated usage data.
-- **better-sqlite3** is used for a simple embedded database. Two tables are created: `features` and `events`.
-- **React** frontend (`frontend/`) fetches usage data from the backend and visualises trends using `react-chartjs-2`.
+![Vite Logo](client/public/vite.svg)
+![React Logo](client/src/assets/react.svg)
 
-The backend also serves the built frontend for production deployment.
+## 🏗 Architecture
+- **Node.js / Express** API in `server/` with a lightweight SQLite database powered by **better-sqlite3**.
+- **React + Vite** frontend in `client/` using `react-chartjs-2` for visualisations.
+- The production build of the client is served directly from the Express app.
 
-## Setup
-1. Install dependencies and build the frontend:
+## 🚀 Quick Start
+1. Install dependencies and build the client:
    ```bash
-   npm run build
+   npm --prefix server install
+   npm --prefix server run build
    ```
 2. Start the server:
    ```bash
-   npm start
+   npm --prefix server start
    ```
-   The server listens on port 3000.
+   Open `http://localhost:3000` to view the dashboard.
+3. For development, run the API and client separately:
+   ```bash
+   npm --prefix server run dev
+   npm --prefix client run dev
+   ```
 
-During development you can run `npm start` and separately `npm --prefix frontend run dev` to enable hot reloading for the React app.
-
-## API Overview
-- `POST /api/events` – log a feature usage event. Body parameters: `feature`, `user`, `account`, `location`.
-- `GET /api/usage` – retrieve aggregated counts per feature for a time range.
+## 📡 API Endpoints
+- `POST /api/events` – log a feature usage event with optional `user`, `account` and `location` fields.
+- `GET /api/usage` – aggregated counts per feature for a time range.
 - `GET /api/trend` – hourly counts for a single feature within a time range.
-- `GET /api/users` – aggregated counts grouped by user.
-- `GET /api/accounts` – aggregated counts grouped by account.
-- `GET /api/locations` – aggregated counts grouped by location.
+- `GET /api/events` – raw event list with query filters.
 
-This prototype is intended to demonstrate the basic data flow and can be extended with authentication, additional filtering, and persistent storage.
+## 📂 Project Structure
+```
+server/   # Express API and SQLite database
+client/   # React frontend powered by Vite
+```
+
+## 🧪 Tests
+Unit tests for the API are located in `server/test`. Run them with:
+```bash
+npm --prefix server test
+```
+
+This prototype demonstrates basic analytics flow and can be extended with authentication, persistent storage and more charts.
