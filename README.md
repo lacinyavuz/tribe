@@ -1,6 +1,6 @@
 # 📊 Feature Usage Tracker
 
-**Feature Usage Tracker** is a full-stack prototype that records feature interactions in real time and displays them with rich charts.
+**Feature Usage Tracker** is a full-stack prototype that records feature interactions and displays them with charts.
 
 ![Vite Logo](client/public/vite.svg)
 ![React Logo](client/src/assets/react.svg)
@@ -8,20 +8,9 @@
 ## 🏗 Architecture
 - **Node.js / Express** API in `server/` with a lightweight SQLite database powered by **better-sqlite3**.
 - **React + Vite** frontend in `client/` using `react-chartjs-2` for visualisations.
-- The production build of the client is served directly from the Express app.
 
 ## 🚀 Quick Start
-1. Install dependencies and build the client:
-   ```bash
-   npm --prefix server install
-   npm --prefix server run build
-   ```
-2. Start the server:
-   ```bash
-   npm --prefix server start
-   ```
-   Open `http://localhost:3000` to view the dashboard.
-3. For development, run the API and client separately:
+For development, run the API and client separately:
    ```bash
    npm --prefix server run dev
    npm --prefix client run dev
@@ -40,9 +29,10 @@ client/   # React frontend powered by Vite
 ```
 
 ## 🧪 Tests
-Unit tests for the API are located in `server/test`. Run them with:
+Unit tests can be run with
 ```bash
 npm --prefix server test
+npm --prefix client test
 ```
 
-This prototype demonstrates basic analytics flow and can be extended with authentication, persistent storage and more charts.
+This prototype demonstrates a basic flow and can be extended with authentication, persistent storage and more charts.

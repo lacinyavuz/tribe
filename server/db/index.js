@@ -86,11 +86,33 @@ function getTrend({ feature, start, end }) {
   return stmt.all(feature, start, end);
 }
 
+function insertRandomEvent() {
+  const feature = ['Tracking', 'Management', 'Security'][Math.floor(Math.random() * 3)];
+  const user = ['Kody Garza', 'Max Wilkins', 'Chandler Perry'][Math.floor(Math.random() * 3)];
+  const account = ['Samsung', 'Apple', 'Google'][Math.floor(Math.random() * 3)];
+  const location = ['US', 'UK', 'EU'][Math.floor(Math.random() * 3)];
+  insertEvent(feature, user, account, location);
+}
+
+let randomEventInterval;
+
+if (process.env.NODE_ENV !== 'production') {
+  randomEventInterval = setInterval(insertRandomEvent, 1000);
+}
+
+function cleanup() {
+  if (randomEventInterval) {
+    clearInterval(randomEventInterval);
+    randomEventInterval = null;
+  }
+}
+
 module.exports = {
   initDb,
   truncateEvents,
   insertEvent,
   getUsage,
   getEvents,
-  getTrend
+  getTrend,
+  cleanup
 };
