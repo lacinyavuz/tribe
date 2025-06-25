@@ -21,6 +21,9 @@ CREATE TABLE IF NOT EXISTS events (
 
 function initDb() {
   db.exec(init);
+}
+
+function truncateEvents() {
   db.exec('DELETE FROM events; DELETE FROM features;');
 }
 
@@ -85,6 +88,7 @@ function getTrend({ feature, start, end }) {
 
 module.exports = {
   initDb,
+  truncateEvents,
   insertEvent,
   getUsage,
   getEvents,
