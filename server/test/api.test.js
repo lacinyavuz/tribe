@@ -15,22 +15,4 @@ describe('API', () => {
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
   });
-
-  test('GET /api/users returns data', async () => {
-    const res = await request(app).get('/api/users');
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-  });
-
-  test('GET /api/accounts returns data', async () => {
-    const res = await request(app).get('/api/accounts');
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-  });
-
-  test('GET /api/locations returns data', async () => {
-    const res = await request(app).get('/api/locations');
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-  });
 });

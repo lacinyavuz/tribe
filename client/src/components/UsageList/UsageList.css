@@ -1,7 +1,8 @@
 .usage-list {
-  padding: 1.5rem;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem;
   background-color: #f0f0f0;
   border-radius: 8px;
+  margin-top: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +15,11 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+}
+
+.usage-list .filters input,
+.usage-list .filters select {
+  margin-left: 1rem;
 }
 
 .usage-list table {
@@ -29,6 +35,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
+
   .usage-list th,
   .usage-list td {
     border-bottom-color: #555;
@@ -47,6 +54,7 @@
   .usage-list thead {
     background-color: #383838;
   }
+
   .usage-list tbody tr:nth-child(odd) {
     background-color: #2d2d2d;
   }
