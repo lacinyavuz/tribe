@@ -19,7 +19,7 @@ function UsageList() {
   }, [range, feature, location]);
 
   return (
-    <div>
+    <div className="usage-list">
       <h1>Feature Usage</h1>
       <div className="filters">
         <label>

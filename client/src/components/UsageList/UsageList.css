@@ -1,5 +1,53 @@
-.filters {
+.usage-list {
+  padding: 1.5rem;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .usage-list {
+    background-color: #303030;
+  }
+}
+
+.usage-list .filters {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+}
+
+.usage-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.usage-list th,
+.usage-list td {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+@media (prefers-color-scheme: dark) {
+  .usage-list th,
+  .usage-list td {
+    border-bottom-color: #555;
+  }
+}
+
+.usage-list thead {
+  background-color: #e0e0e0;
+}
+
+.usage-list tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  .usage-list thead {
+    background-color: #383838;
+  }
+  .usage-list tbody tr:nth-child(odd) {
+    background-color: #2d2d2d;
+  }
 }
