@@ -7,8 +7,8 @@ vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ json: () => Promise.resolve
 
 describe('TrendChart', () => {
   test('renders feature name and fetches data for all features', () => {
-    render(<TrendChart feature="TestFeature" />);
-    expect(screen.getByText(/TestFeature Trend/)).toBeInTheDocument();
+    render(<TrendChart />);
+    expect(screen.getByText(/Trends/)).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledTimes(3);
   });
 });
