@@ -19,7 +19,7 @@ function insertRandomEvent() {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  // setInterval(insertRandomEvent, 1000);
+  setInterval(insertRandomEvent, 1000);
 }
 
 app.use(express.static(path.join(__dirname, '../client', 'dist')));
