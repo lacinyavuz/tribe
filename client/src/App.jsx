@@ -22,7 +22,6 @@ function App() {
       <FeatureBreakdownChart title="Feature Usage by Users" events={events} groupKey="user" />
       <FeatureBreakdownChart title="Feature Usage by Accounts" events={events} groupKey="account" />
       <FeatureBreakdownChart title="Feature Usage by Location" events={events} groupKey="location" />
-
       <UsageList />
     </div>
   );

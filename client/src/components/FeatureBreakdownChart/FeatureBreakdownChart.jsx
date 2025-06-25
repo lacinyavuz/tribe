@@ -7,11 +7,11 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 const FEATURES = ['Tracking', 'Management', 'Security'];
 
 function FeatureBreakdownChart({ title, events, groupKey }) {
-  const categories = Array.from(new Set(events.map(e => e[groupKey] || 'Unknown')));
+  const categories = Array.from(new Set(events.map(e => e[groupKey])));
   const datasets = categories.map((cat, idx) => ({
     label: cat,
     data: FEATURES.map(f =>
-      events.filter(e => e.feature === f && (e[groupKey] || 'Unknown') === cat).length
+      events.filter(e => e.feature === f && (e[groupKey]) === cat).length
     ),
     backgroundColor: COLORS[idx % COLORS.length]
   }));

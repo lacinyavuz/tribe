@@ -30,8 +30,6 @@ function TrendChart() {
     label: `${f} Usage`,
     data: (data[f] || []).map(r => r.count),
     borderColor: COLORS[idx % COLORS.length],
-    backgroundColor: COLORS[idx % COLORS.length].replace('1)', '0.2)'),
-    tension: 0.3
   }));
 
   return (
