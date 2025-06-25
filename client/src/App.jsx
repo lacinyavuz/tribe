@@ -18,7 +18,7 @@ function App() {
   const [trendData, setTrendData] = useState([]);
 
   useEffect(() => {
-    fetch('/api/usage')
+    fetch('http://localhost:3000/api/usage')
       .then(res => res.json())
       .then(setTrendData)
       .catch(console.error);

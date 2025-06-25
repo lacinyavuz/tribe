@@ -12,9 +12,9 @@ function usage(req, res) {
   const startDate = start ? new Date(start) : new Date(Date.now() - 24*60*60*1000);
   const endDate = end ? new Date(end) : new Date();
   const params = {
-    start: startDate.toISOString(),
-    end: endDate.toISOString(),
-    feature: feature ? feature : '%',
+    start: startDate.toISOString().slice(0, 19).replace('T', ' '),
+    end: endDate.toISOString().slice(0, 19).replace('T', ' '),
+    feature: feature ? `%${feature}%` : '%',
     location: location ? `%${location}%` : '%'
   };
   const rows = db.getUsage(params);
@@ -26,9 +26,9 @@ function listEvents(req, res) {
   const startDate = start ? new Date(start) : new Date(Date.now() - 24*60*60*1000);
   const endDate = end ? new Date(end) : new Date();
   const params = {
-    start: startDate.toISOString(),
-    end: endDate.toISOString(),
-    feature: feature ? feature : '%',
+    start: startDate.toISOString().slice(0, 19).replace('T', ' '),
+    end: endDate.toISOString().slice(0, 19).replace('T', ' '),
+    feature: feature ? `%${feature}%` : '%',
     location: location ? `%${location}%` : '%'
   };
   const rows = db.getEvents(params);

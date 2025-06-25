@@ -12,7 +12,7 @@ function UsageList() {
     const params = new URLSearchParams({ start });
     if (feature) params.append('feature', feature);
     if (location) params.append('location', location);
-    fetch(`/api/usage?${params.toString()}`)
+    fetch(`http://localhost:3000/api/usage?${params.toString()}`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
