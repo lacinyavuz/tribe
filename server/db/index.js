@@ -73,9 +73,48 @@ function getTrend({ feature, start, end }) {
   return stmt.all(feature, start, end);
 }
 
+function getUsageByUser({ start, end, feature = '%' }) {
+  const stmt = db.prepare(`
+    SELECT COALESCE(user, 'Unknown') as user, COUNT(e.id) as count
+    FROM events e JOIN features f ON f.id = e.feature_id
+    WHERE e.timestamp BETWEEN ? AND ?
+      AND f.name LIKE ?
+    GROUP BY user
+    ORDER BY count DESC
+  `);
+  return stmt.all(start, end, feature);
+}
+
+function getUsageByAccount({ start, end, feature = '%' }) {
+  const stmt = db.prepare(`
+    SELECT COALESCE(account, 'Unknown') as account, COUNT(e.id) as count
+    FROM events e JOIN features f ON f.id = e.feature_id
+    WHERE e.timestamp BETWEEN ? AND ?
+      AND f.name LIKE ?
+    GROUP BY account
+    ORDER BY count DESC
+  `);
+  return stmt.all(start, end, feature);
+}
+
+function getUsageByLocation({ start, end, feature = '%' }) {
+  const stmt = db.prepare(`
+    SELECT COALESCE(location, 'Unknown') as location, COUNT(e.id) as count
+    FROM events e JOIN features f ON f.id = e.feature_id
+    WHERE e.timestamp BETWEEN ? AND ?
+      AND f.name LIKE ?
+    GROUP BY location
+    ORDER BY count DESC
+  `);
+  return stmt.all(start, end, feature);
+}
+
 module.exports = {
   insertEvent,
   getUsage,
   getEvents,
-  getTrend
+  getTrend,
+  getUsageByUser,
+  getUsageByAccount,
+  getUsageByLocation
 };
