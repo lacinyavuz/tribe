@@ -24,6 +24,7 @@ db.exec(init);
 const getFeatureId = db.prepare('SELECT id FROM features WHERE name = ?');
 const insertFeature = db.prepare('INSERT INTO features(name) VALUES (?)');
 const insertEventStmt = db.prepare('INSERT INTO events(feature_id, user, account, location) VALUES (?,?,?,?)');
+const insertEventWithTsStmt = db.prepare('INSERT INTO events(feature_id, user, account, location, timestamp) VALUES (?,?,?,?,?)');
 
 function ensureFeature(name) {
   let row = getFeatureId.get(name);
@@ -34,9 +35,13 @@ function ensureFeature(name) {
   return row.id;
 }
 
-function insertEvent(feature, user, account, location) {
+function insertEvent(feature, user, account, location, timestamp) {
   const featureId = ensureFeature(feature);
-  insertEventStmt.run(featureId, user, account, location);
+  if (timestamp) {
+    insertEventWithTsStmt.run(featureId, user, account, location, timestamp);
+  } else {
+    insertEventStmt.run(featureId, user, account, location);
+  }
 }
 
 function getUsage({ start, end, feature = '%', location = '%' }) {
