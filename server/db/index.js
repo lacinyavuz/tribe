@@ -19,7 +19,12 @@ CREATE TABLE IF NOT EXISTS events (
   FOREIGN KEY(feature_id) REFERENCES features(id)
 );`;
 
-db.exec(init);
+function initDb() {
+  db.exec(init);
+  db.exec('DELETE FROM events; DELETE FROM features;');
+}
+
+initDb();
 
 const getFeatureId = db.prepare('SELECT id FROM features WHERE name = ?');
 const insertFeature = db.prepare('INSERT INTO features(name) VALUES (?)');
@@ -79,6 +84,7 @@ function getTrend({ feature, start, end }) {
 }
 
 module.exports = {
+  initDb,
   insertEvent,
   getUsage,
   getEvents,
