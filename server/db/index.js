@@ -94,19 +94,6 @@ function insertRandomEvent() {
   insertEvent(feature, user, account, location);
 }
 
-let randomEventInterval;
-
-if (process.env.NODE_ENV !== 'production') {
-  randomEventInterval = setInterval(insertRandomEvent, 1000);
-}
-
-function cleanup() {
-  if (randomEventInterval) {
-    clearInterval(randomEventInterval);
-    randomEventInterval = null;
-  }
-}
-
 module.exports = {
   initDb,
   truncateEvents,
@@ -114,5 +101,5 @@ module.exports = {
   getUsage,
   getEvents,
   getTrend,
-  cleanup
+  insertRandomEvent
 };
